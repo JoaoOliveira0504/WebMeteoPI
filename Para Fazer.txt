@@ -1,0 +1,2 @@
+Criar o data set (ter cuidado para cada imagem ter mesmo os seus dados correspondentes)
+Começar o modelo (Copiar o modelo do reconhecimento de palavras)
