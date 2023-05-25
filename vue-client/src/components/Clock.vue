@@ -24,17 +24,12 @@ export default {
   },
   mounted() {
     this.updateTime();
-    setInterval(this.updateTime, 300000); // Atualiza a cada 5 minutos (5 * 60 * 1000 ms)
+    setInterval(this.updateTime, 60000); // Atualiza a cada minuto (60 * 1000 ms)
   },
   methods: {
+    
     updateTime() {
       const now = new Date();
-
-      // Arredonda os minutos para o múltiplo mais próximo de 5
-      const roundedMinutes = Math.round(now.getMinutes() / 5) * 5;
-
-      // Subtrai 5 minutos
-      now.setMinutes(roundedMinutes - 5);
 
       const timeOptions = {
         hour: 'numeric',
@@ -65,6 +60,7 @@ export default {
         this.iconAlt = 'Ícone da Lua';
       }
     }
+
   }
 };
 </script>

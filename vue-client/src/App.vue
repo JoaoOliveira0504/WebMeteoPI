@@ -3,6 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 
 import Clock from './components/Clock.vue'
+import home from './components/home.vue'
 
 
 const API_URL = 'http://localhost:5000/predict'
@@ -77,7 +78,8 @@ onMounted(() => {
         <!-- imagem "imagens/mapa_pt.png" com uma linha à volta -->
 
         <div class="col-md-6 offset-md-3">
-          <img src="imagens/mapa_pt.png" alt="mapa de Portugal" width="500" height="777">
+          
+         <!-- <img src="imagens/mapa_pt.png" alt="mapa de Portugal" width="500" height="777"> -->
         </div>
       </div>
     </div>
