@@ -4,6 +4,9 @@ import axios from 'axios'
 
 import Clock from './components/Clock.vue'
 import home from './components/home.vue'
+import RadarImage from './components/RadarImage.vue';
+import ImagePredictionForm from './components/ImagePredictionForm.vue';
+
 
 
 const API_URL = 'http://localhost:5000/predict'
@@ -62,28 +65,39 @@ onMounted(() => {
         <div class="col-md-6 offset-md-3">
           <!-- div centrada no meio -->
           <clock />
-          
-          <h2>Image Prediction</h2>
-          <div class="form-group">
-            <label for="image">Select an image:</label>
-            <input type="file" class="form-control-file" id="image" @change="image = $event.target.files[0]" />
+
+          <div class="col-md-6 offset-md-3">
+            <image-prediction-form />
           </div>
-          <button class="btn btn-primary" @click="predict" :disabled="!image">Predict</button>
-          <div v-if="prediction" class="mt-4">
-            <h3>Prediction</h3>
-            <pre v-html="prediction"></pre>
-          </div>
+        </div>
+
+
+
+        <!-- Mostrar o componente RadarImage -->
+        <div class="col-md-6 offset-md-3">
+          <radar-image />
         </div>
 
         <!-- imagem "imagens/mapa_pt.png" com uma linha à volta -->
 
         <div class="col-md-6 offset-md-3">
-          
-         <!-- <img src="imagens/mapa_pt.png" alt="mapa de Portugal" width="500" height="777"> -->
+
+          <!-- <img src="imagens/mapa_pt.png" alt="mapa de Portugal" width="500" height="777"> -->
         </div>
       </div>
+
     </div>
   </div>
+
+
+  <!-- Criar um footer com bootstrap 
+<div class="col-md-6 offset-md-3">
+          <footer class="footer mt-auto py-3 bg-light">
+            <div class="container">
+              <span class="text-muted">WebMeteoPI by Edgar Mendes e João Oliveira</span>
+            </div>
+          </footer>
+        </div> -->
 </template>
 
 <style scoped>
@@ -127,20 +141,16 @@ body {
   border-color: #B0C4DE;
 }
 
-/* Estilização da imagem */
 
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 
-  border-radius: 5px;
+/* Estilização do footer */
 
-  /* Adiciona sombra */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-
-  /* Adiciona borda */
-  border: 1px solid rgba(0, 0, 0, 0.5);
-
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
 }
 </style>
