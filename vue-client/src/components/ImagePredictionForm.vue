@@ -9,7 +9,7 @@
                     </option>
                 </select>
             </div>
-            <button class="btn btn-primary" :disabled="!selectedDistrict">Predict</button>
+            <button class="btn btn-primary" :disabled="selectedDistrict">Predict</button>
         </form>
         <div v-if="prediction" class="mt-4">
             <h3>Prediction</h3>
@@ -36,9 +36,9 @@ export default {
     methods: {
         async predict() {
             try {
-                const response = await axios.post(API_URL, { 'selected-district': this.selectedDistrict })
-                console.log(this.selectedDistrict)
+                const response = await axios.get(API_URL)
                 console.log(response.data)
+                console.log('hora do sexo porraaaaaa')
                 this.prediction = JSON.stringify(response.data, null, 2)
             } catch (error) {
                 console.error(error)
@@ -46,12 +46,12 @@ export default {
         }
     },
     async mounted() {
-        try {
-            const response = await axios.get(DISTRICTS_API_URL)
-            this.districts = response.data
-        } catch (error) {
-            console.error(error)
-        }
+        // try {
+        //     const response = await axios.get(DISTRICTS_API_URL)
+        //     this.districts = response.data
+        // } catch (error) {
+        //     console.error(error)
+        // }
     }
 }
 </script>

@@ -21,14 +21,9 @@ const predict = async () => {
   console.log(image.value)
 
   try {
-    const response = await axios.post(API_URL, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-
+    const response = await axios.get(API_URL)
+    console.log('hora do sexo')
     console.log(response.data)
-
     const formattedResponse = JSON.stringify(response.data, null, 2) // Converter para JSON formatado
     prediction.value = formattedResponse
   } catch (error) {
@@ -56,6 +51,7 @@ onMounted(() => {
           <div class="container-fluid">
             <a class="navbar-brand" href="#">WebMeteoPI</a>
           </div>
+          
         </nav>
         <!-- Criar um relógio só que arredonda para baixo de 5 min e tire 5 min-->
 
@@ -66,16 +62,16 @@ onMounted(() => {
           <!-- div centrada no meio -->
           <clock />
 
-          <div class="col-md-6 offset-md-3">
+          <div class="col-md-8 offset-md-3">
             <image-prediction-form />
           </div>
         </div>
 
-
+        
 
         <!-- Mostrar o componente RadarImage -->
-        <div class="col-md-6 offset-md-3">
-          <radar-image />
+        <div class="col-md-4 offset-md-3">
+          <home />
         </div>
 
         <!-- imagem "imagens/mapa_pt.png" com uma linha à volta -->

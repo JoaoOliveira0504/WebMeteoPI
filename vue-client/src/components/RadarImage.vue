@@ -21,14 +21,7 @@ export default {
     methods: {
         async getRadarImage() {
             try {
-                const response = await axios.get('http://localhost:5000/radar-image', { responseType: 'arraybuffer' });
-                const base64Image = btoa(
-                    new Uint8Array(response.data).reduce(
-                        (data, byte) => data + String.fromCharCode(byte),
-                        '',
-                    ),
-                );
-                this.imageData = `data:image/png;base64,${base64Image}`;
+                console.log('Jorge bonito');
             } catch (error) {
                 console.log(error);
             }
