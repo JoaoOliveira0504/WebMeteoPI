@@ -22,7 +22,6 @@ const predict = async () => {
 
   try {
     const response = await axios.get(API_URL)
-    console.log('hora do sexo')
     console.log(response.data)
     const formattedResponse = JSON.stringify(response.data, null, 2) // Converter para JSON formatado
     prediction.value = formattedResponse

@@ -38,7 +38,6 @@ export default {
             try {
                 const response = await axios.get(API_URL)
                 console.log(response.data)
-                console.log('hora do sexo porraaaaaa')
                 this.prediction = JSON.stringify(response.data, null, 2)
             } catch (error) {
                 console.error(error)

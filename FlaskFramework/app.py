@@ -27,7 +27,7 @@ def get_radar_image():
         # Arredondar a hora atual para o múltiplo de 5 mais próximo
         rounded_datetime = current_datetime_utc - datetime.timedelta(minutes=current_datetime_utc.minute % 5)
 
-        # Atrasar a hora em 5 minutos
+        # Atrasar a hora em 10 minutos
         datetime_delay = rounded_datetime - datetime.timedelta(minutes=10)
 
         # Formatar a hora atrasada no padrão desejado para criar a URL
@@ -66,7 +66,8 @@ def process_image():
 
     current_radar_image = get_radar_image()
     
-    print(type(current_radar_image))
+    #print(type(current_radar_image))
+
     if current_radar_image is None:
         return 'Falha ao obter a imagem do radar.'
 
@@ -93,9 +94,9 @@ def process_image():
             predictions = model.predict(normalized_array_image)
 
             #Adicionar a previsão ao dicionário
-            prediction_dictionary[str(id)] = predicted_class = int(np.argmax(predictions[0]))
+            prediction_dictionary[str(id)] = int(np.argmax(predictions[0]))
 
-            print()
+            #print()
     except Exception as e:
         print(e)
         return 'Erro ao processar a imagem.'
