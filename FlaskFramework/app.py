@@ -87,10 +87,6 @@ def process_image():
     # Create a dictionary where the keys are the prevision hour
     full_hour_prediction_dictionary = {1: None, 2: None, 3: None}
 
-
-    # Create a dictionary where the keys are the IDs
-    current_hour_prediction_dictionary = {str(id): None for id in ids} 
-
     model_weights_list = file_list = os.listdir("model_weights_by_hour/")
 
     for model_weights in model_weights_list:
@@ -102,6 +98,7 @@ def process_image():
 
         finally:
             try:
+                current_hour_prediction_dictionary = {}
                 for id in ids:
 
                     # Recortar a imagem com base nas coordenadas fornecidas
@@ -120,7 +117,7 @@ def process_image():
                     predictions = model.predict(normalized_array_image)
 
                     #Adicionar a previsão ao dicionário
-                    current_hour_prediction_dictionary[str(id)] = denormalize_precipitation_value(int(np.argmax(predictions[0])))
+                    current_hour_prediction_dictionary[station_true_name_dict[id]] = denormalize_precipitation_value(int(np.argmax(predictions[0])))
 
                     #print()
             except Exception as e:
