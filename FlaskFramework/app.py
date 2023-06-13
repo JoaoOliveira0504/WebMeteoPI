@@ -15,7 +15,6 @@ from flask import send_file
 import base64
 from constants import *
 from model import *
-import re
 
 app = Flask(__name__)
 cors = CORS(app) # Permitir o acesso de qualquer origem
