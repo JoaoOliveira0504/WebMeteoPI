@@ -28,7 +28,4 @@ model.add(layers.BatchNormalization())
 model.add(layers.Dropout(dropout_value))
 model.add(layers.Dense(n_classes, activation='softmax'))
 
-# Load the model weights
-model.load_weights('../DeepLearningPrecipitation/best_model.h5')
-
 __all__ = ['image_size', 'num_channels', 'n_classes', 'n_neuronios', 'filter_size', 'max_pool_size', 'n_epochs', 'n_strides', 'dropout_value', 'model']

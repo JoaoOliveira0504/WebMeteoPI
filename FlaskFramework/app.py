@@ -9,14 +9,29 @@ import requests
 import datetime
 import json
 import io
+import os
 import numpy as np
 from flask import send_file
 import base64
 from constants import *
 from model import *
+import re
 
 app = Flask(__name__)
 cors = CORS(app) # Permitir o acesso de qualquer origem
+
+# Função para desnormalizar o valor da precipitação
+def denormalize_precipitation_value(normalized_value):
+    return (normalized_value * 240) / 100
+
+# Função para extrair o valor da hora de diferença com base no nome do ficheiro de pesos
+def extract_number_from_filename(filename):
+    pattern = r'\d+'  # Regular expression pattern to match one or more digits
+    match = re.search(pattern, filename)
+    if match:
+        return int(match.group())
+    else:
+        return None
 
 # Função para obter a imagem do radar
 def get_radar_image():
@@ -65,44 +80,56 @@ def resize_image(image):
 def process_image():
 
     current_radar_image = get_radar_image()
-    
-    #print(type(current_radar_image))
 
     if current_radar_image is None:
         return 'Falha ao obter a imagem do radar.'
 
+    # Create a dictionary where the keys are the prevision hour
+    full_hour_prediction_dictionary = {1: None, 2: None, 3: None}
+
+
     # Create a dictionary where the keys are the IDs
-    prediction_dictionary = {str(id): None for id in ids} 
+    current_hour_prediction_dictionary = {str(id): None for id in ids} 
 
-    try:
-        for id in ids:
+    model_weights_list = file_list = os.listdir("model_weights_by_hour/")
 
-            # Recortar a imagem com base nas coordenadas fornecidas
-            print(f"\n{current_radar_image}")
-            cropped_image = current_radar_image.crop(station_box_dict[id])
+    for model_weights in model_weights_list:
+        try:
+            model.load_weights("model_weights_by_hour/"+str(model_weights))
 
-            # Redimensionar a imagem
-            cropped_image = resize_image(cropped_image)
+        except Exception as e:
+            print("Erro ao carregar os pesos do modelo: ", e)
 
-            # Converter a imagem para um array
-            array_image = np.array([np.array(cropped_image)])
+        finally:
+            try:
+                for id in ids:
 
-            # Normalizar a imagem
-            normalized_array_image = normalize(array_image, axis=1)
+                    # Recortar a imagem com base nas coordenadas fornecidas
+                    cropped_image = current_radar_image.crop(station_box_dict[id])
 
-            # Previsão usando o modelo carregado
-            predictions = model.predict(normalized_array_image)
+                    # Redimensionar a imagem
+                    cropped_image = resize_image(cropped_image)
 
-            #Adicionar a previsão ao dicionário
-            prediction_dictionary[str(id)] = int(np.argmax(predictions[0]))
+                    # Converter a imagem para um array
+                    array_image = np.array([np.array(cropped_image)])
 
-            #print()
-    except Exception as e:
-        print(e)
-        return 'Erro ao processar a imagem.'
+                    # Normalizar a imagem
+                    normalized_array_image = normalize(array_image, axis=1)
 
-    finally:
-        return json.dumps(prediction_dictionary)
+                    # Previsão usando o modelo carregado
+                    predictions = model.predict(normalized_array_image)
+
+                    #Adicionar a previsão ao dicionário
+                    current_hour_prediction_dictionary[str(id)] = denormalize_precipitation_value(int(np.argmax(predictions[0])))
+
+                    #print()
+            except Exception as e:
+                print(e)
+                return 'Erro ao processar a imagem.'
+
+            finally:
+                full_hour_prediction_dictionary[str(extract_number_from_filename(model_weights))] = current_hour_prediction_dictionary           
+    return json.dumps(full_hour_prediction_dictionary)
 
 
 
