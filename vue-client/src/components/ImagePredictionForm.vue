@@ -2,7 +2,7 @@
   <div class="dataTable">
     <!-- make a beautifull table with bootstrap -->
     <div class="table-responsive">
-      <table class="table table-striped table-bordered">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>Distrito</th>
@@ -75,48 +75,6 @@ export default {
 </script>
 
 <style scoped>
-/* Custom CSS for the table */
-.dataTable {
-  margin: 20px;
-}
-
-.table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-}
-
-.table thead th {
-  vertical-align: middle;
-  border-bottom: 2px solid #dee2e6;
-  background-color: #f5f5f5;
-  color: #333;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.table-bordered {
-  border: 1px solid #dee2e6;
-}
-
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #dee2e6;
-}
-
-.table-responsive {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
 
 /* Custom styles for the table cells */
 .table td,
@@ -132,14 +90,6 @@ export default {
 }
 
 /* Additional styles for better readability */
-.table-striped tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-
-.table td:first-child,
-.table th:first-child {
-  padding-left: 1.5rem;
-}
 
 .table td:last-child,
 .table th:last-child {
@@ -148,39 +98,21 @@ export default {
 
 /* Custom colors */
 .table thead th {
-  background-color: #ccdef0;
+  background-color: #1f9cea;
   color: #000000;
   border: 1px solid #000000;
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #3a81c8;
-}
-
-.table-bordered {
+.table-bordered, .table-bordered td {
   border: 1px solid #000000;
 }
 
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #000000;
+.table tbody tr:nth-child(even) td {
+  background-color: #c5ecf4;  /* Set the background color for even rows */
 }
 
-.table-bordered tbody td:first-child {
-  border-left: none;
+.table tbody tr:nth-child(odd) td {
+  background-color: #d3d1d1; /* Set the background color for odd rows */
 }
-
-.table-bordered tbody td:last-child {
-  border-right: none;
-}
-
-.table-bordered tbody tr:first-child td {
-  border-top: none;
-}
-
-.table-bordered tbody tr:last-child td {
-  border-bottom: none;
-}
-
 
 </style>
