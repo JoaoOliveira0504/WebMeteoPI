@@ -10,7 +10,7 @@ filter_size = 3
 max_pool_size = (2,2) 
 n_epochs = 100 
 n_strides = 1
-dropout_value = 0.6
+dropout_value = 0.4
 
 # Create the model architecture
 model = models.Sequential()
