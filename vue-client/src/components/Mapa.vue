@@ -107,7 +107,28 @@ export default {
       },
     ],
   },
+
+  methods: {
+    /*ignoreTransparent(event) {
+      const target = event.target;
+      const x = event.clientX - target.offsetLeft;
+      const y = event.clientY - target.offsetTop;
+
+      const pixelColor = getComputedStyle(target).getPropertyValue("background-color");
+
+      if (pixelColor === "rgba(0, 0, 0, 0)") {
+        console.log(`Ignoring transparent pixel at (${x}, ${y})`);
+        return;
+      }
+
+      // Your logic for non-transparent pixels goes here
+      console.log("Hovered pixel color: " + pixelColor);
+    },*/
 }
+};
+
+
+
 </script>
 
 <style scoped>

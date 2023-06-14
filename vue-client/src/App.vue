@@ -3,7 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 
 import Clock from './components/Clock.vue'
-import home from './components/home.vue'
+import Mapa from './components/Mapa.vue'
 import RadarImage from './components/RadarImage.vue';
 import ImagePredictionForm from './components/ImagePredictionForm.vue';
 
@@ -44,17 +44,9 @@ onMounted(() => {
 <template>
   <!-- Criar uma navbar com bootstrap -->
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">WebMeteoPI</a>
-          </div>
-        </nav>
-      </div>
-    </div>
+    
 
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-md-12 text-center">
         <!-- <clock /> -->
         <clock /> <!-- Use appropriate component name here -->
@@ -68,7 +60,7 @@ onMounted(() => {
             <image-prediction-form /> <!-- Use appropriate component name here -->
           </div>
           <div class="col-md-6">
-            <home /> <!-- Use appropriate component name here -->
+            <Mapa /> <!-- Use appropriate component name here -->
           </div>
         </div>
       </div>

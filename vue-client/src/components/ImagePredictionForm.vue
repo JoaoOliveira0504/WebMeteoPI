@@ -2,7 +2,7 @@
   <div class="dataTable">
     <!-- make a beautifull table with bootstrap -->
     <div class="table-responsive">
-      <table class="table table-bordered">
+      <table class="table table-bordered text-center">
         <thead>
           <tr>
             <th>Distrito</th>
@@ -22,6 +22,7 @@
       </table>
     </div>
   </div>
+  <p style="font-weight: bold;">Intensidade Precipitação (mm/h)</p>
 </template>
 
 <script>
