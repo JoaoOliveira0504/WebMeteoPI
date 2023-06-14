@@ -1,5 +1,5 @@
 <template>
-  <div class="clock-container col-md-12 offset-md-3"> <!-- mudar para col-md-8 offset-md-3 quando conseguir centrar a div -->
+  <div class="clock-container col-md-12"> <!-- mudar para col-md-8 offset-md-3 quando conseguir centrar a div -->
     <div class="clock-time">{{ formattedTime }}</div>
     <div class="clock-date">{{ formattedDate }}</div>
     <div>

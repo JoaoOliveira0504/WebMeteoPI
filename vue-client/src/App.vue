@@ -45,105 +45,49 @@ onMounted(() => {
   <!-- Criar uma navbar com bootstrap -->
   <div class="container">
     <div class="row">
-      <div class="col-md-12 offset-md-3">
+      <div class="col-md-12">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">WebMeteoPI</a>
           </div>
-          
         </nav>
-        <!-- Criar um relógio só que arredonda para baixo de 5 min e tire 5 min-->
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <!-- <clock /> -->
+        <clock /> <!-- Use appropriate component name here -->
+      </div>
+    </div>
 
-        <!-- Criar um formulário para selecionar a imagem a ser classificada e botão para chamar a função predict com bootstrap para estilização -->
-
-        <div class="col-md-6 offset-md-3">
-          <!-- div centrada no meio -->
-          <clock />
-
-            <image-prediction-form />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6">
+            <image-prediction-form /> <!-- Use appropriate component name here -->
+          </div>
+          <div class="col-md-6">
+            <home /> <!-- Use appropriate component name here -->
+          </div>
         </div>
+      </div>
+    </div>
 
-        
 
-        <!-- Mostrar o componente RadarImage -->
-        <div class="col-md-4 offset-md-3">
-          <home />
-        </div>
-
+    <div class="row">
+      <div class="col-md-12 text-center">
         <!-- imagem "imagens/mapa_pt.png" com uma linha à volta -->
-
         <div class="col-md-6 offset-md-3">
-
           <!-- <img src="imagens/mapa_pt.png" alt="mapa de Portugal" width="500" height="777"> -->
         </div>
       </div>
-
     </div>
   </div>
-
-
-  <!-- Criar um footer com bootstrap 
-<div class="col-md-6 offset-md-3">
-          <footer class="footer mt-auto py-3 bg-light">
-            <div class="container">
-              <span class="text-muted">WebMeteoPI by Edgar Mendes e João Oliveira</span>
-            </div>
-          </footer>
-        </div> -->
 </template>
 
-<style scoped>
-/* Estilização do body */
-
-body {
-  background-color: #ADD8E6;
-}
-
-/* Estilização do navbar */
-
-.navbar {
-  background-color: #87CEEB;
-}
-
-/* Estilização do botão */
-
-.btn-primary {
-  background-color: #1E90FF;
-  border-color: #1E90FF;
-}
-
-/* Estilização do botão quando o rato passa por cima */
-
-.btn-primary:hover {
-  background-color: #4169E1;
-  border-color: #4169E1;
-}
-
-/* Estilização do botão quando está desativado */
-
-.btn-primary:disabled {
-  background-color: #B0C4DE;
-  border-color: #B0C4DE;
-}
-
-/* Estilização do botão quando está desativado e o rato passa por cima */
-
-.btn-primary:disabled:hover {
-  background-color: #B0C4DE;
-  border-color: #B0C4DE;
-}
 
 
 
-/* Estilização do footer */
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  background-color: #f5f5f5;
-}
-</style>
+
