@@ -61,9 +61,7 @@ onMounted(() => {
           <!-- div centrada no meio -->
           <clock />
 
-          <div class="col-md-8 offset-md-3">
             <image-prediction-form />
-          </div>
         </div>
 
         

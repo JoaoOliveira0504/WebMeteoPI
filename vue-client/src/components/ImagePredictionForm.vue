@@ -1,61 +1,73 @@
 <template>
-    <div>
-        <h2>Image Prediction</h2>
-        <form @submit.prevent="predict">
-            <div class="form-group">
-                <label for="districts">Select district:</label>
-                <select class="form-control" id="districts" v-model="selectedDistrict">
-                    <option v-for="(districtName, districtCode) in districts" :value="districtCode">{{ districtName }}
-                    </option>
-                </select>
-            </div>
-            <button class="btn btn-primary" :disabled="selectedDistrict">Predict</button>
-        </form>
-        <div v-if="prediction" class="mt-4">
-            <h3>Prediction</h3>
-            <pre>{{ prediction }}</pre>
-        </div>
-    </div>
+  <div class="hello">
+    <!-- make a beautifull table with bootstrap -->
+    <h1>Previsão de precipitação</h1>
+    <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Distrito</th>
+          <th>1 hora de diferença</th>
+          <th>2 horas de diferença</th>
+          <th>3 horas de diferença</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, key) in formattedData" :key="key">
+          <td>{{ key }}</td>
+          <td>{{ item[0] }}</td>
+          <td>{{ item[1] }}</td>
+          <td>{{ item[2] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
 </template>
-  
-<script>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
 
-const API_URL = 'http://localhost:5000/process_image'
-const DISTRICTS_API_URL = 'http://localhost:5000/estacoes'
+<script>
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 export default {
-    data() {
-        return {
-            selectedDistrict: null,
-            prediction: null,
-            districts: {}
-        }
-    },
-    methods: {
-        async predict() {
-            try {
-                const response = await axios.get(API_URL)
-                console.log(response.data)
-                this.prediction = JSON.stringify(response.data, null, 2)
-            } catch (error) {
-                console.error(error)
+  data() {
+    return {
+      formattedData: {},
+    };
+  },
+  methods: {
+    fetchData() {
+      axios
+        .get("http://localhost:5000/process_image")
+        .then((response) => {
+          const data = response.data;
+
+          for (const [key, value] of Object.entries(data)) {
+            for (const [key2, value2] of Object.entries(value)) {
+              if (!this.formattedData[key2]) {
+                this.formattedData[key2] = [];
+              }
+              this.formattedData[key2].push(value2);
             }
-        }
+          }
+          // console.log(this.formattedData);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    async mounted() {
-        // try {
-        //     const response = await axios.get(DISTRICTS_API_URL)
-        //     this.districts = response.data
-        // } catch (error) {
-        //     console.error(error)
-        // }
-    }
-}
+  },
+  mounted() {
+    this.fetchData();
+    setInterval(this.fetchData, 60000); // Atualiza a cada minuto (60 * 1000 ms)
+  },
+};
 </script>
-  
+
 <style scoped>
 /* CSS styles */
+/* Make sure that the <td> text are centered */
+td, th {
+  text-align: center;
+}
 </style>
-  

@@ -112,16 +112,15 @@ export default {
 
 <style scoped>
 .home-container {
-  width: 100%;
   height: auto;
   display: flex;
   align-items: flex-end;
   border-color: var(--dl-color-gray-black);
   border-style: solid;
-  border-width: 15px;
+  border-width: 1px;
+  background-color: #87CEEB;
   flex-direction: column;
   justify-content: center;
-  background-color: #000000;
 }
 .home-container1 {
   width: 378px;
@@ -278,6 +277,9 @@ export default {
   transition: transform 0.3s; 
 }
 
+.home-image:hover,
+.home-image01:hover,
+.home-image02:hover,
 .home-image03:hover,
 .home-image04:hover,
 .home-image05:hover,
@@ -292,7 +294,9 @@ export default {
 .home-image14:hover,
 .home-image15:hover,
 .home-image16:hover,
-.home-image17:hover {
+.home-image17:hover
+
+{
   transform: scale(1.2); /* Zoom to 120% */
   z-index: 2;
 }
