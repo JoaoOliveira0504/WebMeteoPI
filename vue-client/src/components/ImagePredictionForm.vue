@@ -36,31 +36,42 @@ export default {
     };
   },
   methods: {
-    fetchData() {
-      axios
-        .get("http://localhost:5000/process_image")
-        .then((response) => {
-          const data = response.data;
+  fetchData() {
+    console.log("Fetching data...");
 
-          for (const [key, value] of Object.entries(data)) {
-            for (const [key2, value2] of Object.entries(value)) {
-              if (!this.formattedData[key2]) {
-                this.formattedData[key2] = [];
-              }
-              this.formattedData[key2].push(value2);
+    axios
+      .get("http://localhost:5000/process_image")
+      .then((response) => {
+        const data = response.data;
+
+        for (const [key, value] of Object.entries(data)) {
+          for (const [key2, value2] of Object.entries(value)) {
+            if (!this.formattedData[key2]) {
+              this.formattedData[key2] = [];
             }
+            this.formattedData[key2].push(value2);
           }
-          // console.log(this.formattedData);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-  },
+        }
+        // console.log(this.formattedData);
+
+        setTimeout(() => {
+          this.fetchData();
+        }, 300000); // Fetch data again after 5 minutes
+      })
+      .catch((error) => {
+        console.error(error);
+
+        setTimeout(() => {
+          this.fetchData();
+        }, 300000); // Fetch data again after 5 minutes in case of error
+      });
+  }
+},
+
   mounted() {
-    this.fetchData();
-    setInterval(this.fetchData, 60000); // Atualiza a cada minuto (60 * 1000 ms)
+    this.fetchData();    
   },
+
 };
 </script>
 
