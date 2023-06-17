@@ -102,6 +102,7 @@ export default {
   background-color: #1f9cea;
   color: #000000;
   border: 1px solid #000000;
+  text-align: center;
 }
 
 .table-bordered, .table-bordered td {
