@@ -75,8 +75,49 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </div>
+</div>
+
+    <!-- Criar um footer com informação do nome do projeto e o nome dos dois desenvolvedores com bootstrap -->
+    <footer class="text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5>Projeto Web Meteo com Inteligência Artificial</h5>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5>Desenvolvido por:</h5>
+
+          <p>
+            Edgar Mendes - 2201698
+            <br />
+            João Oliveira - 2201705
+          </p>
+
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+  </footer>
+
 </template>
+
+<style scoped>
+
+footer {
+  background-color: #87CEEB;
+  text-align: center;
+  border-radius: 5px;
+}
+
+</style>
 
 
 

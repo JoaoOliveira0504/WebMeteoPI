@@ -14,7 +14,7 @@ import numpy as np
 from flask import send_file
 import base64
 from constants import *
-from model import *
+from model import model
 import re
 
 app = Flask(__name__)

@@ -10,7 +10,7 @@ filter_size = 3
 max_pool_size = (2,2) 
 n_epochs = 100 
 n_strides = 1
-dropout_value = 0.4
+dropout_value = 0.6
 
 # Create the model architecture
 model = models.Sequential()
@@ -28,4 +28,4 @@ model.add(layers.BatchNormalization())
 model.add(layers.Dropout(dropout_value))
 model.add(layers.Dense(n_classes, activation='softmax'))
 
-__all__ = ['image_size', 'num_channels', 'n_classes', 'n_neuronios', 'filter_size', 'max_pool_size', 'n_epochs', 'n_strides', 'dropout_value', 'model']
+# __all__ = ['image_size', 'num_channels', 'n_classes', 'n_neuronios', 'filter_size', 'max_pool_size', 'n_epochs', 'n_strides', 'dropout_value', 'model']
