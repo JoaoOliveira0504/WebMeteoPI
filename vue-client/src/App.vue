@@ -4,7 +4,6 @@ import axios from 'axios'
 
 import Clock from './components/Clock.vue'
 import Mapa from './components/Mapa.vue'
-import RadarImage from './components/RadarImage.vue';
 import ImagePredictionForm from './components/ImagePredictionForm.vue';
 
 
