@@ -22,61 +22,60 @@
       </table>
     </div>
   </div>
-  <p style="font-weight: bold;">Intensidade Precipitação (mm/h)</p>
+  <div v-if="isLoading" class="text-center">
+    <p>Loading...</p>
+  </div>
+  <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
 import axios from "axios";
+// import bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default {
   data() {
     return {
       formattedData: {},
+      isLoading: true,
     };
   },
-  methods: {
-  fetchData() {
-    console.log("Fetching data...");
-
-    axios
-      .get("http://localhost:5000/process_image")
-      .then((response) => {
-        const data = response.data;
-
-        for (const [key, value] of Object.entries(data)) {
-          for (const [key2, value2] of Object.entries(value)) {
-            if (!this.formattedData[key2]) {
-              this.formattedData[key2] = [];
-            }
-            this.formattedData[key2].push(value2);
-          }
-        }
-        // console.log(this.formattedData);
-
-        setTimeout(() => {
-          this.fetchData();
-        }, 300000); // Fetch data again after 5 minutes
-      })
-      .catch((error) => {
-        console.error(error);
-
-        setTimeout(() => {
-          this.fetchData();
-        }, 300000); // Fetch data again after 5 minutes in case of error
-      });
-  }
-},
-
   mounted() {
-    this.fetchData();    
+    this.fetchData();
+    setInterval(this.fetchData, 300000); // 5 minutes
   },
 
+  methods: {
+    fetchData() {
+      this.isLoading = true;
+      this.formattedData = {};
+      console.log("Fetching data...");
+
+      axios
+        .get("http://localhost:5000/process_image")
+        .then((response) => {
+          const data = response.data;
+
+          for (const [key, value] of Object.entries(data)) {
+            for (const [key2, value2] of Object.entries(value)) {
+              if (!this.formattedData[key2]) {
+                this.formattedData[key2] = [];
+              }
+              this.formattedData[key2].push(value2);
+            }
+          }
+          this.isLoading = false;
+          console.log(this.formattedData);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 /* Custom styles for the table cells */
 .table td,
 .table th {
@@ -104,16 +103,16 @@ export default {
   border: 1px solid #000000;
 }
 
-.table-bordered, .table-bordered td {
+.table-bordered,
+.table-bordered td {
   border: 1px solid #000000;
 }
 
 .table tbody tr:nth-child(even) td {
-  background-color: #c5ecf4;  /* Set the background color for even rows */
+  background-color: #c5ecf4; /* Set the background color for even rows */
 }
 
 .table tbody tr:nth-child(odd) td {
   background-color: #d3d1d1; /* Set the background color for odd rows */
 }
-
 </style>
