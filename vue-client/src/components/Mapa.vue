@@ -3,11 +3,7 @@
     <!--insert image-->
     <div class="map-container">
       <div class="radar-container">
-        <img
-          :src="radarImage"
-          alt="Mapa de Portugal"
-          class="radar-image"
-        />
+        <img :src="radarImage" alt="Mapa de Portugal" class="radar-image" />
       </div>
 
       <img
@@ -20,7 +16,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "Mapa de Portugal",
@@ -30,14 +26,24 @@ export default {
     };
   },
   async mounted() {
-    try {
-      // Make a GET request to your Flask API endpoint to retrieve the radar image data
-      const response = await axios.get('http://localhost:5000/radar-image');
-      // Update the radarImage data property with the base64 encoded image data
-      this.radarImage = `data:image/png;base64,${response.data}`;
-    } catch (error) {
-      console.error(error);
-    }
+    this.getRadarImage();
+    // setInterval(this.getRadarImage, 300000); // 5 minutes
+  },
+  methods: {
+    getRadarImage() {
+      console.log("Getting radar image...");
+      this.radarImage = null;
+      axios
+        .get("http://localhost:5000/radar-image")
+        .then((response) => {
+          const data = response.data;
+          this.radarImage = `data:image/png;base64,${data}`;
+          console.log("Radar image received!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

@@ -1,54 +1,10 @@
-<script setup>
-import { ref, watch, onMounted } from 'vue'
-import axios from 'axios'
-
-import Clock from './components/Clock.vue'
-import Mapa from './components/Mapa.vue'
-import ImagePredictionForm from './components/ImagePredictionForm.vue';
-
-
-
-const API_URL = 'http://localhost:5000/predict'
-
-const image = ref(null)
-
-const prediction = ref(null)
-
-const predict = async () => {
-  const formData = new FormData()
-  formData.append('file', image.value)
-  console.log(image.value)
-
-  try {
-    const response = await axios.get(API_URL)
-    console.log(response.data)
-    const formattedResponse = JSON.stringify(response.data, null, 2) // Converter para JSON formatado
-    prediction.value = formattedResponse
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-
-watch(image, () => {
-  prediction.value = null
-})
-
-onMounted(() => {
-  image.value = null
-})
-
-</script>
-
 <template>
   <!-- Criar uma navbar com bootstrap -->
   <div class="container">
-    
-
     <div class="row mt-3">
       <div class="col-md-12 text-center">
         <!-- <clock /> -->
-        <clock /> <!-- Use appropriate component name here -->
+        <clock ref="clock" />
       </div>
     </div>
 
@@ -56,28 +12,17 @@ onMounted(() => {
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-6">
-            <image-prediction-form /> <!-- Use appropriate component name here -->
+            <image-predictions ref="imagePredictions" />
           </div>
           <div class="col-md-6">
-            <Mapa /> <!-- Use appropriate component name here -->
+            <Mapa ref="mapa" />
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <!-- imagem "imagens/mapa_pt.png" com uma linha à volta -->
-        <div class="col-md-6 offset-md-3">
-          <!-- <img src="imagens/mapa_pt.png" alt="mapa de Portugal" width="500" height="777"> -->
-        </div>
-      </div>
-    </div>
-</div>
-
-    <!-- Criar um footer com informação do nome do projeto e o nome dos dois desenvolvedores com bootstrap -->
-    <footer class="text-center text-lg-start">
+  <footer class="text-center text-lg-start">
     <!-- Grid container -->
     <div class="container p-4">
       <!--Grid row-->
@@ -91,13 +36,11 @@ onMounted(() => {
         <!--Grid column-->
         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
           <h5>Desenvolvido por:</h5>
-
           <p>
             Edgar Mendes - 2201698
             <br />
             João Oliveira - 2201705
           </p>
-
         </div>
         <!--Grid column-->
       </div>
@@ -105,21 +48,34 @@ onMounted(() => {
     </div>
     <!-- Grid container -->
   </footer>
-
 </template>
 
-<style scoped>
+<script>
+import Clock from "./components/Clock.vue";
+import Mapa from "./components/Mapa.vue";
+import ImagePredictions from "./components/ImagePredictions.vue";
 
+export default {
+  name: "App",
+  components: {
+    Clock,
+    Mapa,
+    ImagePredictions,
+  },
+  mounted() {
+    setInterval(() => {
+      this.$refs.imagePredictions.fetchData();
+      this.$refs.mapa.getRadarImage();
+    }, 300000);
+  },
+};
+
+</script>
+
+<style scoped>
 footer {
-  background-color: #87CEEB;
+  background-color: #87ceeb;
   text-align: center;
   border-radius: 5px;
 }
-
 </style>
-
-
-
-
-
-

@@ -27,7 +27,7 @@
     </div>
   </div>
   <div v-if="isLoading" class="text-center">
-    <p>Loading...</p>
+    <p>A calcular previsões...</p>
   </div>
   <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
 </template>
@@ -45,7 +45,7 @@ export default {
   },
   mounted() {
     this.fetchData();
-    setInterval(this.fetchData, 300000); // 5 minutes
+    // setInterval(this.fetchData, 300000); // 5 minutes
   },
 
   methods: {
