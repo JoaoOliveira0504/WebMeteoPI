@@ -25,6 +25,9 @@
   <div v-if="isLoading" class="text-center">
     <p>Loading...</p>
   </div>
+  <div class="text-center">
+    <b-spinner label="Loading..."></b-spinner>
+  </div>
   <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
 </template>
 

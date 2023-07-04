@@ -76,6 +76,25 @@ def resize_image(image):
     # Return the resized image
     return resized_image
 
+def remove_black_pixels(image):
+    # Convert the image to RGBA mode (if it's not already in RGBA mode)
+    image = image.convert("RGBA")
+    # Get the pixel data as a list of tuples
+    pixels = list(image.getdata())
+    # Replace every black pixel with transparent
+    new_pixels = []
+    for pixel in pixels:
+        if pixel[0] == 0 and pixel[1] == 0 and pixel[2] == 0:
+            new_pixels.append((0, 0, 0, 0))
+        else:
+            new_pixels.append(pixel)
+    # Create a new image with the same size and mode as the original image
+    new_image = Image.new(image.mode, image.size)
+    # Update the new image with the new pixel data
+    new_image.putdata(new_pixels)
+    # Return the new image
+    return new_image
+
 @app.route('/process_image', methods=['GET'])
 def process_image():
 
@@ -133,7 +152,13 @@ def process_image():
 # Rota para obter a imagem do radar
 @app.route('/radar-image', methods=['GET'])
 def radar_image():
-    return send_file(get_radar_image(), mimetype='image/png')
+    # return send_file(get_radar_image(), mimetype='image/png')
+    image = get_radar_image()
+    image = remove_black_pixels(image)
+    buffered = io.BytesIO()
+    image.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue())
+    return img_str
 
 if __name__ == '__main__':
     app.run()
