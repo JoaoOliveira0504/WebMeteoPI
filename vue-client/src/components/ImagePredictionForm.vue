@@ -2,6 +2,10 @@
   <div class="dataTable">
     <!-- make a beautifull table with bootstrap -->
     <div class="table-responsive">
+
+      <!-- apresentar a hora em que se está a fazer a previsão -->
+      <p style="font-weight: bold">Previsão a partir das {{ date }}h</p>
+
       <table class="table table-bordered text-center">
         <thead>
           <tr>
@@ -25,22 +29,18 @@
   <div v-if="isLoading" class="text-center">
     <p>Loading...</p>
   </div>
-  <div class="text-center">
-    <b-spinner label="Loading..."></b-spinner>
-  </div>
   <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
 </template>
 
 <script>
 import axios from "axios";
-// import bootstrap
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export default {
   data() {
     return {
       formattedData: {},
       isLoading: true,
+      date: "",
     };
   },
   mounted() {
@@ -69,6 +69,29 @@ export default {
           }
           this.isLoading = false;
           console.log(this.formattedData);
+
+          // Obter a hora atual em UTC
+          var current_datetime_utc = new Date();
+
+          // Arredondar a hora atual para o múltiplo de 5 mais próximo
+          var rounded_datetime = new Date(current_datetime_utc);
+          rounded_datetime.setMinutes(
+            Math.floor(rounded_datetime.getMinutes() / 5) * 5
+          );
+
+          // Atrasar a hora em 10 minutos
+          var datetime_delay = new Date(
+            rounded_datetime.getTime() - 10 * 60000
+          );
+
+          // Converter a hora para o formato hh:mm
+          var datetime_local = datetime_delay.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+
+          // Atualizar a variável date
+          this.date = datetime_local;
         })
         .catch((error) => {
           console.error(error);

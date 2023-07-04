@@ -70,7 +70,6 @@ export default {
   overflow: hidden;
 }
 
-.map-image,
 .radar-image {
   position: absolute;
   top: -32%;
