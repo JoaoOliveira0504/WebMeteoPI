@@ -5,7 +5,6 @@
       <div class="radar-container">
         <img :src="radarImage" alt="Mapa de Portugal" class="radar-image" />
       </div>
-
       <img
         src="../assets/mapaPortugal.png"
         alt="Mapa de Portugal"

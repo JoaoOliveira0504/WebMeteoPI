@@ -29,7 +29,8 @@
   <div v-if="isLoading" class="text-center">
     <p>A calcular previsões...</p>
   </div>
-  <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
+    <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
+    
 </template>
 
 <script>
@@ -47,7 +48,6 @@ export default {
     this.fetchData();
     // setInterval(this.fetchData, 300000); // 5 minutes
   },
-
   methods: {
     fetchData() {
       this.isLoading = true;
@@ -58,7 +58,6 @@ export default {
         .get("http://localhost:5000/process_image")
         .then((response) => {
           const data = response.data;
-
           for (const [key, value] of Object.entries(data)) {
             for (const [key2, value2] of Object.entries(value)) {
               if (!this.formattedData[key2]) {
@@ -72,24 +71,20 @@ export default {
 
           // Obter a hora atual em UTC
           var current_datetime_utc = new Date();
-
           // Arredondar a hora atual para o múltiplo de 5 mais próximo
           var rounded_datetime = new Date(current_datetime_utc);
           rounded_datetime.setMinutes(
             Math.floor(rounded_datetime.getMinutes() / 5) * 5
           );
-
           // Atrasar a hora em 10 minutos
           var datetime_delay = new Date(
             rounded_datetime.getTime() - 10 * 60000
           );
-
           // Converter a hora para o formato hh:mm
           var datetime_local = datetime_delay.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           });
-
           // Atualizar a variável date
           this.date = datetime_local;
         })
