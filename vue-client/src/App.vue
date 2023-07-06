@@ -17,6 +17,7 @@
           <div class="col-md-6">
             <Mapa ref="mapa" />
           </div>
+          
         </div>
       </div>
     </div>

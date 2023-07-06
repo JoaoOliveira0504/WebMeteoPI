@@ -29,7 +29,8 @@
   <div v-if="isLoading" class="text-center">
     <p>A calcular previsões...</p>
   </div>
-  <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
+    <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
+    
 </template>
 
 <script>
