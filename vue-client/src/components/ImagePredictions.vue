@@ -1,18 +1,13 @@
 <template>
   <div class="dataTable">
-    <!-- make a beautifull table with bootstrap -->
     <div class="table-responsive">
-
-      <!-- apresentar a hora em que se está a fazer a previsão -->
-      <p style="font-weight: bold">Previsão a partir das {{ date }}h</p>
-
       <table class="table table-bordered text-center">
         <thead>
           <tr>
             <th>Distrito</th>
-            <th>1 hora de diferença</th>
-            <th>2 horas de diferença</th>
-            <th>3 horas de diferença</th>
+            <th>Previsão para as {{ time_delay1h }}h</th>
+            <th>Previsão para as {{ time_delay2h }}h</th>
+            <th>Previsão para as {{ time_delay3h }}h</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +25,6 @@
     <p>A calcular previsões...</p>
   </div>
     <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
-    
 </template>
 
 <script>
@@ -41,7 +35,9 @@ export default {
     return {
       formattedData: {},
       isLoading: true,
-      date: "",
+      time_delay1h: "",
+      time_delay2h: "",
+      time_delay3h: "",
     };
   },
   mounted() {
@@ -52,6 +48,9 @@ export default {
     fetchData() {
       this.isLoading = true;
       this.formattedData = {};
+      this.time_delay1h = "";
+      this.time_delay2h = "";
+      this.time_delay3h = "";
       console.log("Fetching data...");
 
       axios
@@ -78,15 +77,28 @@ export default {
           );
           // Atrasar a hora em 10 minutos
           var datetime_delay = new Date(
-            rounded_datetime.getTime() - 10 * 60000
+            rounded_datetime.getTime() - 10 * 60000 + 3600000 
           );
           // Converter a hora para o formato hh:mm
-          var datetime_local = datetime_delay.toLocaleTimeString([], {
+          this.time_delay1h = datetime_delay.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           });
-          // Atualizar a variável date
-          this.date = datetime_local;
+          // console.log(this.time_delay1h);
+          this.time_delay2h = new Date(
+            datetime_delay.getTime() + 3600000
+          ).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          // console.log(this.time_delay2h);
+          this.time_delay3h = new Date(
+            datetime_delay.getTime() + 2 * 3600000
+          ).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          // console.log(this.time_delay3h);
         })
         .catch((error) => {
           console.error(error);
