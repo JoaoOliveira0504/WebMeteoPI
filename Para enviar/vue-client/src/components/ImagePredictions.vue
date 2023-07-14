@@ -5,9 +5,9 @@
         <thead>
           <tr>
             <th>Distrito</th>
-            <th>Previsão para as {{ time_delay1h }}h</th>
-            <th>Previsão para as {{ time_delay2h }}h</th>
-            <th>Previsão para as {{ time_delay3h }}h</th>
+            <th>Previsão para as {{ time_delay1h }}</th>
+            <th>Previsão para as {{ time_delay2h }}</th>
+            <th>Previsão para as {{ time_delay3h }}</th>
           </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
   <div v-if="isLoading" class="text-center">
     <p>A calcular previsões...</p>
   </div>
-    <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
+  <p style="font-weight: bold">Intensidade Precipitação (mm/h)</p>
 </template>
 
 <script>
@@ -77,7 +77,7 @@ export default {
           );
           // Atrasar a hora em 10 minutos
           var datetime_delay = new Date(
-            rounded_datetime.getTime() - 10 * 60000 + 3600000 
+            rounded_datetime.getTime() - 10 * 60000 + 3600000
           );
           // Converter a hora para o formato hh:mm
           this.time_delay1h = datetime_delay.toLocaleTimeString([], {
@@ -142,10 +142,12 @@ export default {
 }
 
 .table tbody tr:nth-child(even) td {
-  background-color: #c5ecf4; /* Set the background color for even rows */
+  background-color: #c5ecf4;
+  /* Set the background color for even rows */
 }
 
 .table tbody tr:nth-child(odd) td {
-  background-color: #d3d1d1; /* Set the background color for odd rows */
+  background-color: #d3d1d1;
+  /* Set the background color for odd rows */
 }
 </style>
