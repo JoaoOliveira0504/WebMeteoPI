@@ -1,0 +1,2 @@
+model_checkpoint_path: "Glorot_dqn_weights_maxmax"
+all_model_checkpoint_paths: "Glorot_dqn_weights_maxmax"
